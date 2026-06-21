@@ -1,0 +1,31 @@
+# OS
+.DS_Store
+
+# Node
+server/node_modules/
+server/package-lock.json
+server/npm-debug.log*
+
+# Unity generated folders
+unity/Library/
+unity/Temp/
+unity/Obj/
+unity/Build/
+unity/Builds/
+unity/Logs/
+unity/UserSettings/
+unity/MemoryCaptures/
+
+# Unity generated files
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+
+# IDE
+.idea/
+.vscode/
