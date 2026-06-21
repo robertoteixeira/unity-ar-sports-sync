@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using ARSportsSync.Networking;
 using ARSportsSync.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using ARSportsSync.Networking;
 
 namespace ARSportsSync.AR
 {
@@ -12,10 +12,11 @@ namespace ARSportsSync.AR
     {
         [SerializeField] private ARRaycastManager raycastManager;
         [SerializeField] private GameObject targetPrefab;
-        [SerializeField] private Transform contentRoot;
         [SerializeField] private RealtimePoseClient poseClient;
 
         private static readonly List<ARRaycastHit> Hits = new List<ARRaycastHit>();
+
+        private Transform targetRoot;
         private GameObject spawned;
 
         public RealtimePoseTarget SpawnedPoseTarget
@@ -47,20 +48,25 @@ namespace ARSportsSync.AR
 
             Pose hitPose = Hits[0].pose;
 
+            if (targetRoot == null)
+            {
+                GameObject rootObject = new GameObject("RealtimeTargetRoot");
+                targetRoot = rootObject.transform;
+            }
+
+            targetRoot.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+
             if (spawned == null)
             {
-                Transform parent = contentRoot == null ? null : contentRoot;
-                spawned = Instantiate(targetPrefab, hitPose.position, hitPose.rotation, parent);
-                
+                spawned = Instantiate(targetPrefab, targetRoot);
+                spawned.transform.localPosition = UnityEngine.Vector3.zero;
+                spawned.transform.localRotation = Quaternion.identity;
+
                 RealtimePoseTarget poseTarget = SpawnedPoseTarget;
                 if (poseClient != null && poseTarget != null)
                 {
                     poseClient.SetTarget(poseTarget);
                 }
-            }
-            else
-            {
-                spawned.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             }
         }
 
