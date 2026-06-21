@@ -32,6 +32,11 @@ namespace ARSportsSync.Networking
         public int StaleCount => staleCount;
         public double LastRoundTripMs => lastRoundTripMs;
 
+        public void SetTarget(RealtimePoseTarget poseTarget)
+        {
+            target = poseTarget;
+        }
+        
         private async void Start()
         {
             if (connectOnStart)

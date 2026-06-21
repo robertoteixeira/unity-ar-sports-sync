@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using ARSportsSync.Networking;
 
 namespace ARSportsSync.AR
 {
@@ -12,6 +13,7 @@ namespace ARSportsSync.AR
         [SerializeField] private ARRaycastManager raycastManager;
         [SerializeField] private GameObject targetPrefab;
         [SerializeField] private Transform contentRoot;
+        [SerializeField] private RealtimePoseClient poseClient;
 
         private static readonly List<ARRaycastHit> Hits = new List<ARRaycastHit>();
         private GameObject spawned;
@@ -49,6 +51,12 @@ namespace ARSportsSync.AR
             {
                 Transform parent = contentRoot == null ? null : contentRoot;
                 spawned = Instantiate(targetPrefab, hitPose.position, hitPose.rotation, parent);
+                
+                RealtimePoseTarget poseTarget = SpawnedPoseTarget;
+                if (poseClient != null && poseTarget != null)
+                {
+                    poseClient.SetTarget(poseTarget);
+                }
             }
             else
             {
