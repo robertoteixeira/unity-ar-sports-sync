@@ -56,7 +56,7 @@ wss.on("connection", (socket, request) => {
         try {
             const message = JSON.parse(raw.toString());
 
-            if (message === "ping") {
+            if (message.type === "ping") {
                 socket.send(JSON.stringify({
                     type: "pong",
                     clientTimeMs: message.clientTimeMs,
