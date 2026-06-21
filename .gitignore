@@ -19,6 +19,7 @@ unity/MemoryCaptures/
 # Unity generated files
 *.csproj
 *.sln
+*.slnx
 *.user
 *.pidb
 *.booproj

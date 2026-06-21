@@ -81,4 +81,4 @@ setInterval(() => {
 }, intervalMs);
 
 console.log(`Unity AR Sports Sync server listening on ws://0.0.0.0:${port}`);
-console.log(`broadcast post snapshots at ${hz} HZ`);
+console.log(`broadcasting pose snapshots at ${hz} Hz`);
