@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ARSportsSync.Networking
 {
-    public sealed class RealtimePostClient: MonoBehaviour
+    public sealed class RealtimePoseClient: MonoBehaviour
     {
         [SerializeField] private string serverUrl = "ws://192.168.1.10:8080";
         [SerializeField] private RealtimePoseTarget target;
