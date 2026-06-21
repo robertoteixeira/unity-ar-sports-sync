@@ -1,6 +1,6 @@
 using ARSportsSync.Networking;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ARSportsSync.Runtime
 {
@@ -8,13 +8,13 @@ namespace ARSportsSync.Runtime
     {
         [SerializeField] private RealtimePoseClient client;
         [SerializeField] private RealtimePoseTarget target;
-        [SerializeField] private Text text;
+        [SerializeField] private TMP_Text text;
 
         private float fps;
 
         private void Reset()
         {
-            text = GetComponent<Text>();
+            text = GetComponent<TMP_Text>();
         }
 
         private void Update()
