@@ -27,6 +27,10 @@ unity/MemoryCaptures/
 *.pdb
 *.mdb
 
+# Unity crash reports
+unity/mono_crash.*.json
+unity/sysinfo.txt
+
 # IDE
 .idea/
 .vscode/
