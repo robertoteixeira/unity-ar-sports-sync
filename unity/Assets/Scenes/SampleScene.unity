@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562490573b59049688ec0ff84df14802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverUrl: ws://192.168.0.5:8080
+  serverUrl: ws://192.168.0.2:8080
   target: {fileID: 0}
   connectOnStart: 1
   pingIntervalSeconds: 1
