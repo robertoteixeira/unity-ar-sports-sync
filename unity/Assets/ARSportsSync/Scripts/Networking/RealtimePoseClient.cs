@@ -116,33 +116,42 @@ namespace ARSportsSync.Networking
                 _ = SendPingAsync();
             }
 
+            string latestPoseJson = null;
+
             while (incoming.TryDequeue(out string json))
             {
-                HandleMessage(json);
+                if (json.Contains("\"type\":\"pong\""))
+                {
+                    HandlePongMessage(json);
+                    continue;
+                }
+
+                if (json.Contains("\"type\":\"pose\""))
+                {
+                    messageCount++;
+                    latestPoseJson = json;
+                }                
             }
+
+            if (latestPoseJson != null)
+            {
+                HandlePoseMessage(latestPoseJson);
+            }            
         }
 
-        private void HandleMessage(string json)
+        private void HandlePongMessage(string json)
         {
-            if (json.Contains("\"type\":\"pong\""))
-            {
-                PongMessage pong = JsonUtility.FromJson<PongMessage>(json);
-                lastRoundTripMs = Time.realtimeSinceStartupAsDouble * 1000.0 - pong.clientTimeMs;
-                return;
-            }
+            PongMessage pong = JsonUtility.FromJson<PongMessage>(json);
+            lastRoundTripMs = Time.realtimeSinceStartupAsDouble * 1000.0 - pong.clientTimeMs;
+        }
 
-            if (!json.Contains("\"type\":\"pose\""))
-            {
-                return;
-            }
-
+        private void HandlePoseMessage(string json)
+        {
             PoseSnapshot snapshot = JsonUtility.FromJson<PoseSnapshot>(json);
             if (snapshot == null)
             {
                 return;
             }
-
-            messageCount++;
 
             if (target == null)
             {
@@ -154,7 +163,7 @@ namespace ARSportsSync.Networking
             {
                 staleCount++;
             }
-        }
+        }        
 
         private async Task SendPingAsync()
         {
