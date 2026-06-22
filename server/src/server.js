@@ -15,12 +15,13 @@ function nowMs() {
 
 function createPose() {
     const t = (nowMs() - startedAt) / 1000;
-    const radius = 0.55;
+    const radius = 0.18;
+    const centerZ = 0.45;
 
-    const x = Math.cos(t * 1.3) * radius;
-    const z = 1.1 + Math.sin(t * 1.3) * radius;
-    const y = 0.05 + Math.abs(Math.sin(t * 3.0)) * 0.18;
-    const yaw = (t * 90) % 360;
+    const x = Math.cos(t * 0.9) * radius;
+    const z = centerZ + Math.sin(t * 0.9) * radius;
+    const y = 0.05 + Math.abs(Math.sin(t * 2.0)) * 0.08;
+    const yaw = (t * 55) % 360;
 
     return {
         type: "pose",
